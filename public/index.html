@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1b151e" />
+  <title>Ludo Rewired — The Chaos Edition</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a href="/" class="brand" aria-label="Ludo Rewired home"><span class="brand-icon">✳</span><span>LUDO<span class="brand-dot">.</span>REWIRED</span></a>
+      <div class="topbar-right">
+        <span class="online-status"><span id="netDot" class="status-dot"></span><span id="netText">Connecting…</span></span>
+        <button class="ghost-button tiny" id="rulesBtn" type="button">⌘ &nbsp; How to play</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="welcomeView" class="welcome-view">
+        <div class="welcome-copy">
+          <span class="eyebrow"><span class="sparkle">✦</span> NOT YOUR ORDINARY BOARD GAME</span>
+          <h1>Classic Ludo.<br><span class="outline-word">Total</span> <em>chaos.</em></h1>
+          <p>Two dice. Eight rivals. Wild powers, danger zones, sudden resets and a final twist that changes everything.</p>
+          <div class="hero-stats"><span><strong>08</strong> players max</span><span><strong>02</strong> dice each turn</span><span><strong>05</strong> wild powers</span></div>
+          <div class="welcome-form">
+            <label for="playerName">YOUR PLAYER NAME</label>
+            <input id="playerName" maxlength="20" placeholder="e.g. Chaos King" autocomplete="nickname" />
+            <div class="welcome-actions"><button id="createBtn" class="primary-button" type="button">Create a room <span>↗</span></button></div>
+            <div class="join-split"><span>or join your crew</span></div>
+            <div class="join-form"><input id="roomInput" aria-label="6-character room invitation code" maxlength="6" placeholder="ROOM CODE" autocapitalize="characters" /><button id="joinBtn" class="secondary-button" type="button">Join room →</button></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="hero-center"><span class="hero-flower">✳</span><span class="hero-art-word">LET'S<br>ROLL</span></div>
+          <div class="hero-chip hero-chip-a">⚡ REVERSE</div><div class="hero-chip hero-chip-b">✦ DOUBLE POWER</div>
+          <div class="hero-piece piece-a"></div><div class="hero-piece piece-b"></div><div class="hero-piece piece-c"></div><div class="hero-piece piece-d"></div>
+          <div class="hero-die die-one"><b>●</b><b>●</b><b>●</b><b>●</b></div><div class="hero-die die-two"><b>●</b><b>●</b><b>●</b><b>●</b><b>●</b></div>
+        </div>
+      </section>
+
+      <section id="lobbyView" class="lobby-view hidden">
+        <div class="lobby-main">
+          <span class="eyebrow">YOUR PRIVATE GAME NIGHT</span>
+          <h2>The party<br><em>starts here.</em></h2>
+          <p>Your friends can join with this code or the invitation link. Once everyone's here, hit start.</p>
+          <div class="invite-panel"><div><span class="invite-label">YOUR INVITE CODE</span><strong id="lobbyCode" class="invite-code">------</strong></div><div class="invite-actions"><button id="copyCodeBtn" class="small-button">Copy code</button><button id="copyLinkBtn" class="small-button filled">Copy invite link ↗</button></div></div>
+          <div class="lobby-settings"><div><h3>Chaos countdown</h3><p>One active token from each team gets sent back to base at each interval.</p></div><select id="resetSelect" aria-label="Reset interval"><option value="60">Every 60 sec</option><option value="90" selected>Every 90 sec</option><option value="120">Every 2 min</option><option value="180">Every 3 min</option></select></div>
+          <button id="startBtn" class="primary-button start-button">Start the chaos <span>↗</span></button><p id="startHint" class="hint">At least 2 players needed to begin.</p>
+        </div>
+        <div class="lobby-roster"><div class="roster-head"><span class="eyebrow">THE LINEUP</span><span id="lobbyCount">0 / 8</span></div><div id="lobbyPlayers" class="lobby-players"></div><div class="lobby-tip">✳ &nbsp; Tip: You can test multiplayer by opening this link in another browser tab with a different name.</div></div>
+      </section>
+
+      <section id="gameView" class="game-view hidden">
+        <div class="game-heading"><div><span class="eyebrow">THE CHAOS EDITION</span><h2 id="gameTitle">It's game time<span class="brand-dot">.</span></h2></div><div class="game-heading-actions"><span id="gameCode" class="game-code">CODE ------</span><button id="gameCopyBtn" class="small-button">Invite ↗</button></div></div>
+        <div class="game-layout">
+          <div class="board-card"><div class="board-head"><div><span class="board-head-label">THE ARENA</span><span id="boardMode" class="board-head-mode">● NORMAL PLAY</span></div><div class="board-legend"><span><i class="legend-dot red"></i> Danger</span><span><i class="legend-dot gold"></i> Safe</span></div></div>
+            <div class="board-frame"><svg id="board" viewBox="0 0 800 800" role="img" aria-label="Circular Ludo game board with sixty-four outer spaces and eight player lanes"></svg></div>
+            <div class="board-footer"><span>✦ &nbsp; Click your glowing token to move</span><span id="boardCounter">TURN 01</span></div>
+          </div>
+          <aside class="sidebar">
+            <div class="clock-panel"><div class="clock-block"><span>⏱ &nbsp; NEXT CHAOS RESET</span><strong id="resetTimer">01:30</strong><div class="timer-track"><span id="resetBar"></span></div></div><div class="clock-block"><span>⌛ &nbsp; TURN TIMER</span><strong id="turnTimer">00:45</strong><div class="timer-track"><span id="turnBar"></span></div></div></div>
+            <div class="play-panel"><div class="panel-head"><span class="eyebrow">YOUR MOVE</span><span id="turnChip" class="turn-chip">WAITING</span></div><div id="turnInfo" class="turn-info">Waiting for players…</div><div id="actionArea"></div></div>
+            <div class="score-panel"><div class="panel-head"><span class="eyebrow">PLAYERS</span><span id="gamePlayerCount">0 / 8</span></div><div id="scorePlayers" class="score-list"></div></div>
+            <div class="log-panel"><div class="panel-head"><span class="eyebrow">LIVE HIGHLIGHTS</span><span>✳</span></div><div id="eventLog" class="event-log"></div></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="page-footer"><span>✳ LUDO REWIRED</span><span>THE RULES WERE MADE TO BE BROKEN.</span></footer>
+  </div>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <div id="rulesModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="rulesTitle"><div class="modal-backdrop" id="modalBackdrop"></div><div class="modal-content"><button id="closeModal" type="button" class="modal-close" aria-label="Close">✕</button><span class="eyebrow">THE RULEBOOK</span><h2 id="rulesTitle">Ludo, but <em>unhinged.</em></h2><div class="rules-list"><p><strong>01 / Gather your crew</strong><br>2–8 players join with a 6-character invite code. Each player has three tokens and a different starting space.</p><p><strong>02 / Roll two dice</strong><br>Each turn, two dice roll. You choose die 1, die 2 or their combined total, then click one of your highlighted tokens. To leave base, your selected dice must include a 6. Finish all three tokens to win.</p><p><strong>03 / Doubles = power</strong><br>Roll matching numbers and select one: extra turn, 25-second shield for active tokens, a one-use token lifeline, +2 movement, or clear danger warnings.</p><p><strong>04 / Danger zones</strong><br>Red spaces are hazardous. After landing there, you have your next two personal turns to move that token away. If you don't, it returns to base. Capturing an opponent on a non-safe square also sends them back.</p><p><strong>05 / Chaos reset</strong><br>At the host-selected time interval, each team's leading active token is targeted and sent home, unless protected by a shield or lifeline.</p><p><strong>06 / The grand reversal</strong><br>Once any player has finished two of their three tokens, reverse mode triggers for eight turns. Tokens then travel backwards. After that, normal play resumes.</p><p><strong>07 / No stalling</strong><br>Turns last 45 seconds. If no legal move exists, pass. Shields block losses while active; lifelines block one loss. If disconnected, you can reconnect by refreshing the same tab.</p></div><button class="primary-button modal-gotit" id="gotItBtn">Got it, let's roll ↗</button></div></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

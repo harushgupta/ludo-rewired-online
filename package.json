@@ -1,0 +1,8 @@
+{
+  "name": "ludo-rewired",
+  "version": "1.0.0",
+  "description": "A real-time, 8-player, twist-filled Ludo game. Zero external dependencies.",
+  "private": true,
+  "scripts": { "start": "node server.js", "test": "node --test tests/*.test.js" },
+  "engines": { "node": ">=20" }
+}

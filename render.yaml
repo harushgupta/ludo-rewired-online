@@ -1,0 +1,15 @@
+# Render Blueprint: https://render.com/docs/blueprints
+# Deploy as a Web Service (not a static site): multiplayer requires WebSockets.
+services:
+  - type: web
+    name: ludo-rewired-online
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
